@@ -1,0 +1,631 @@
+<!-- <?php
+$statusMsg='';
+if(isset($_POST['submit'])){
+    $to = "akshay.matre@sprigrer.in"; // this is your Email address
+    $from = $_POST['email']; // this is the sender's Email address
+    $first_name = $_POST['name'];
+    $last_name = $_POST['number'];
+    $subject = "Form submission";
+    $subject2 = "Copy of your form submission";
+    $message = $first_name . " " . $last_name .  "\n\n" . $_POST['message'];
+    $message2 = "Here is a copy of your message " . $first_name . "\n\n" . $_POST['message'];
+
+    $headers = "From:" . $from;
+    $headers2 = "From:" . $to;
+    mail($to,$subject,$message,$headers);
+    mail($from,$subject2,$message2,$headers2); // sends a copy of the message to the sender
+    echo "Mail Sent. Thank you " . $first_name . ", we will contact you shortly.";
+    // You can also use header('Location: thank_you.php'); to redirect to another page.
+    }
+?>
+
+<?php
+$statusMsg='';
+if(isset($_FILES["file"]["name"])){
+    $fname=($_POST['fname']);
+    $lname=($_POST['lname']);
+    $email=$_POST['cemail'];
+    $cnumber=($_POST['cnumber']);
+    $caddress=($_POST['address']);
+    $academic=$_POST['academic'];
+    $skill=$_POST['skill'];
+    $avail=($_POST['avail']);
+    $apply=($_POST['apply']);
+    
+$fromemail =  $email;
+$subject="New Registration";
+$email_message = '<h2>Contact Request Submitted</h2>
+                    <p><b>First Name:</b> '.$fname.'</p>
+                    <p><b>Last Name:</b> '.$lname.'</p>
+                    <p><b>Email:</b> '.$cemail.'</p>
+                    <p><b>Number:</b> '.$cnumber.'</p>
+                    <p><b>Address:</b> '.$caddress.'</p>
+                    <p><b>Academic:</b> '.$academic.'</p>
+                    <p><b>Skills:</b> '.$skill.'</p>
+                    <p><b>Avaibility:</b> '.$avail.'</p>
+                    <p><b>Apply For:</b><br/>'.$apply.'</p>';
+                    
+$email_message.="Please find the attachment";
+$semi_rand = md5(uniqid(time()));
+$headers = "From: ".$fromemail;
+$mime_boundary = "==Multipart_Boundary_x{$semi_rand}x";
+
+    $headers .= "\nMIME-Version: 1.0\n" .
+    "Content-Type: multipart/mixed;\n" .
+    " boundary=\"{$mime_boundary}\"";
+
+if($_FILES["file"]["name"]!= ""){  
+	$strFilesName = $_FILES["file"]["name"];  
+	$strContent = chunk_split(base64_encode(file_get_contents($_FILES["file"]["tmp_name"])));  
+	
+	
+    $email_message .= "This is a multi-part message in MIME format.\n\n" .
+    "--{$mime_boundary}\n" .
+    "Content-Type:text/html; charset=\"iso-8859-1\"\n" .
+    "Content-Transfer-Encoding: 7bit\n\n" .
+    $email_message .= "\n\n";
+
+
+    $email_message .= "--{$mime_boundary}\n" .
+    "Content-Type: application/octet-stream;\n" .
+    " name=\"{$strFilesName}\"\n" .
+    //"Content-Disposition: attachment;\n" .
+    //" filename=\"{$fileatt_name}\"\n" .
+    "Content-Transfer-Encoding: base64\n\n" .
+    $strContent  .= "\n\n" .
+    "--{$mime_boundary}--\n";
+}
+$toemail="akshay.matre@sprigrer.in";	
+
+if(mail($toemail, $subject, $email_message, $headers)){
+   $statusMsg= "Email send successfully with attachment";
+}else{
+   $statusMsg= "Not sent";
+}
+}
+?> -->
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="#" type="image/gif" style="background-color: white;" alt='#'> 
+
+    <link rel="stylesheet" href="css/style.css">
+    <!-- Animation library css -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <!-- Fontawesome library css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+
+
+    <title>Single page website</title>
+  </head>
+  <body>
+    
+    <!-- Header section start -->
+    <header>
+        <nav class="navbar navbar-expand-lg fixed-top  shadow-sm" style="background-color: black;" id="navbar">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">
+                    <img src="" class="img-fluid bg-white" alt="company logo" id="logo" width="80px" height="80px">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fa fa-bars text-white" style="font-size:28px; background: -webkit-linear-gradient( #198754,#042889 );background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;" aria-hidden="true"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav  mx-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#about">About Us</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#service">What we do</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#team">Our Team</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#contact">Contact us</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex">
+                        <a href="careers.html" class="btn career" type="submit" data-bs-toggle="modal" data-bs-target="#exampleModal">Careers</a>
+                    </form>
+                </div>
+            </div>
+        </nav>
+
+        <div id="particles-js">
+           <div class="container">
+                <div class="row">
+                    <div class="col-12 text-box col-md-12 col-lg-12 d-flex justify-content-center align-items-center">
+                        <h2 class="text-center text-white" style="line-height: 50px;">
+                            HI <span class="  text-slider-items">This</span><span class="text-slider display-5 fw-bold"></span> is <br>a
+                            Single Page Website
+                        </h2>
+                    </div>
+                </div>
+           </div>
+        </div>
+
+    </header>
+    <!-- Header section end -->
+
+    <!-- career modal section start -->
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content bg-light">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    <div class="sec-title-main ">
+                        <div class="bottom-border">
+                            <h4 class="head-color">
+                                Career Form
+                            </h4>
+                        </div>                                
+                    </div>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">    
+                    <form action="" method="post" enctype="multipart/form-data">
+                        <div class="col-12 mt-2">
+                            <input type="text" name="fname" class="form-control" id="inputfName" placeholder="First Name">
+                        </div>
+                        <div class="col-12 mt-3">
+                            <input type="text" name="lname" class="form-control" id="inputlName" placeholder="Last Name">
+                        </div>
+                        <div class="col-12 mt-3">
+                            <input type="email" name="cemail" class="form-control" id="inputEmail"  placeholder="abc@gmail.com">
+                        </div>
+                        <div class="col-12 mt-3">                                      
+                            <input type="tel" name="cnumber" class="form-control" id="inputPNumber"  placeholder="Mobile">
+                        </div>
+                        <div class="col-12 mt-3">
+                            <input type="text" name="address" class="form-control" id="inputAddress" placeholder="Address">
+                        </div>
+                        <div class="col-6 mt-3">
+                            <select class="form-select" name="academic" aria-label="Default select example">
+                                <option selected>Academic</option>
+                                <option value="B.Tech">B.Tech</option>
+                                <option value="M.Tech">M.Tech</option>
+                                <option value="B.Sc">B.Sc</option>
+                                <option value="BCA">BCA</option>
+                                <option value="MCA">MCA</option>
+                            </select>
+                        </div>
+                        <div class="col-12 mt-3">
+                            <input type="text" name="skill" class="form-control" id="inputskills" placeholder="Programming skills">
+                        </div>
+                        <div class="col-6 mt-3">
+                            <select class="form-select" name="avail" aria-label="Default select example">
+                                <option selected>Avaibility</option>
+                                <option value="B.Tech">Fresher</option>
+                                <option value="M.Tech">Experienced</option>
+                            </select>
+                        </div>
+                        <div class="col-6 mt-3">
+                            <select class="form-select" name="apply" aria-label="Default select example">
+                                <option selected>Apply for</option>
+                                <option value="B.Tech">Web developer/option>
+                                <option value="M.Tech">Data scintist</option>
+                                <option value="B.Sc">Game developer</option>
+                                <option value="BCA">Android developer</option>
+                                <option value="MCA">HR</option>
+                            </select>
+                        </div>
+                        <div class="mt-3">
+                            <input class="form-control" name="file" type="file" id="formFile">
+                        </div>
+
+                        <div class="col-12 mt-3 d-flex justify-content-start">
+                            <button type="submit" name="submit" class="btn " style="color:white; background: linear-gradient(to right, #042889, #198754);;">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- career modal section end -->
+
+    <!-- about section start -->
+    <section id="about" class="about-section">
+        <div class="container mt-5">
+            <div class="row ">
+                <div class="col-md-5 col-12 col-lg-5 col-xxl-5">
+                    <div class="intro-image pb-4">
+                        <img src="./images/about1.jpg"  class="img-fluid about-img">
+                    </div>
+                </div>
+
+                <div class="col-md-5 col-12 col-lg-5 col-xxl-5 d-flex justify-content-start flex-column align-items-center">
+                    <div class="sec-title-main ">
+                        <div class="bottom-border">
+                            <h2 class="head-color text-capitalize">
+                                    Who We Are
+                            </h2>
+                        </div>
+                        <p class="pt-1 about-paragraph text-start">
+                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Obcaecati fuga delectus, nam ea laudantium sit nihil doloribus expedita? Vitae delectus eius quas unde accusamus! Libero iste vel earum debitis dolorem.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- About section end -->
+
+    <!-- Service section start -->
+    <section id="service" class="service-section">
+        <div class="container">
+            <div class="row ">
+                 <div class="col-md-8 col-12 col-lg-8">
+                    <div class="sec-title-main ">
+                        <div class="bottom-border">
+                            <h2 class="head-color text-capitalize">
+                                Explore the service we offer for you
+                            </h2>
+                        </div>                                
+                    </div>
+                 </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-md-4 col-11 col-lg-4 col-xxl-4  mx-auto">
+                    <div class="card mb-3" style="max-width: 540px;" data-aos="zoom-in-up" data-aos-duration="1000"> 
+                        <div class="card-body d-flex justify-content-center flex-column align-items-center">
+                            <img src="./images/AD.png" class=" img-fluid p-2" width="70px" height="70px" alt="service">
+                            <h6 class="card-title text-uppercase fw-bold mt-3"> Mobile application</h6>
+                            <p class="card-text text-center">
+                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptas iure quibusdam cumque. Temporibus, quidem quod, obcaecati dignissimos quas maiores, consequatur explicabo sit inventore veniam nostrum excepturi animi minus quam doloribus?
+                            </p>
+                        </div>                           
+                    </div>
+                </div>
+                <div class="col-md-4 col-11 col-lg-4 col-xxl-4  mx-auto">
+                    <div class="card mb-3" style="max-width: 540px;" data-aos="zoom-in-up" data-aos-duration="1000"> 
+                        <div class="card-body d-flex justify-content-center flex-column align-items-center">
+                            <img src="./images/DM.png" class=" img-fluid p-2" width="80px" height="80px" alt="service">
+                            <h6 class="card-title text-uppercase fw-bold mt-3"> Digital Marketing</h6>
+                            <p class="card-text text-center">
+                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptas iure quibusdam cumque. Temporibus, quidem quod, obcaecati dignissimos quas maiores, consequatur explicabo sit inventore veniam nostrum excepturi animi minus quam doloribus
+                            </p>
+                        </div>                           
+                    </div>
+                </div>
+                <div class="col-md-4 col-11 col-lg-4 col-xxl-4  mx-auto">
+                    <div class="card mb-3" style="max-width: 540px;" data-aos="zoom-in-up" data-aos-duration="1000"> 
+                        <div class="card-body d-flex justify-content-center flex-column align-items-center">
+                            <img src="./images/GD.png" class=" img-fluid p-2" width="80px" height="80px" alt="service">
+                            <h6 class="card-title text-uppercase fw-bold mt-3"> game development</h6>
+                            <p class="card-text text-center">
+                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptas iure quibusdam cumque. Temporibus, quidem quod, obcaecati dignissimos quas maiores, consequatur explicabo sit inventore veniam nostrum excepturi animi minus quam doloribus
+                            </p>
+                        </div>                           
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 col-11 col-lg-4 col-xxl-4  mx-auto">
+                    <div class="card mb-3" style="max-width: 540px;" data-aos="zoom-in-up" data-aos-duration="1000"> 
+                        <div class="card-body d-flex justify-content-center flex-column align-items-center">
+                            <img src="./images/WD.png" class="img-fluid p-2" width="80px" height="80px" alt="service">
+                            <h6 class="card-title text-uppercase h6 fw-bold mt-3"> Web Design</h6>
+                            <p class="card-text text-center">
+                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptas iure quibusdam cumque. Temporibus, quidem quod, obcaecati dignissimos quas maiores, consequatur explicabo sit inventore veniam nostrum excepturi animi minus quam doloribus
+                            </p>
+                        </div>                           
+                    </div>
+                </div>
+                <div class="col-md-4 col-11 col-lg-4 col-xxl-4  mx-auto">
+                    <div class="card mb-3" style="max-width: 540px;" data-aos="zoom-in-up" data-aos-duration="1000"> 
+                        <div class="card-body d-flex justify-content-center flex-column align-items-center">
+                            <img src="./images/chatbot.png" class="img-fluid p-2" width="80px" height="80px" alt="service">
+                            <h6 class="card-title text-uppercase fw-bold mt-3"> Ai chatbot</h6>
+                            <p class="card-text text-center text-justify">
+                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptas iure quibusdam cumque. Temporibus, quidem quod, obcaecati dignissimos quas maiores, consequatur explicabo sit inventore veniam nostrum excepturi animi minus quam doloribus
+                            </p>
+                        </div>                           
+                    </div>
+                </div>
+                <div class="col-md-4 col-11 col-lg-4 col-xxl-4  mx-auto" >
+                    <div class="card mb-3" style="max-width: 540px; padding-bottom: 20px;" data-aos="zoom-in-up" data-aos-duration="1000"> 
+                        <div class="card-body d-flex justify-content-center flex-column align-items-center">
+                            <img src="./images/iot.png" class="img-fluid p-2" width="90px" height="90px" alt="service">
+                            <h6 class="card-title text-uppercase fw-bold mt-1"> iot</h6>
+                            <p class="card-text text-center">
+                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptas iure quibusdam cumque. Temporibus, quidem quod, obcaecati dignissimos quas maiores, consequatur explicabo sit inventore veniam nostrum excepturi animi minus quam doloribus
+                            </p>
+                        </div>                           
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Service section end -->
+
+    <!-- counter section start -->
+    <section id="team" class="counter-section py-5 ">
+        <div class="container">
+            <div class="row my-5 justify-content-center align-items-center">
+                <div class="one col-md-10 col-11 col-lg-4 col-xxl-4 my-2 mx-auto justify-content-center text-center">
+                    <i class="fa fa-gift  text-white my-3" style="font-size:48px;" aria-hidden="true"></i>
+                    
+                    <p class="text-white h1 counter">10</p>
+                    <p class="text-white h5">Completed Projects</p>
+                </div>
+                <div  class="one col-md-10 col-11 col-lg-4 col-xxl-4 my-2 mx-auto justify-content-center text-center">
+                  
+                    <i class="fa fa-smile-o text-white my-3" style="font-size:48px;" aria-hidden="true"></i>
+                    
+                    <p class="text-white h1 counter">10</p>
+                    <p class="text-white h5">Happy Clients</p>
+                            
+                </div>
+
+                <div class="one col-md-10 col-11 col-lg-4 col-xxl-4 my-2 mx-auto justify-content-center text-center text-white ">
+                    <i class="fa fa-history text-white my-3" style="font-size:48px;" aria-hidden="true"></i>
+                    
+                    <p class="text-white h1 counter">547</p>
+                    <p class="text-white h5">Working Hours</p>
+                </div>                 
+            </div>
+        </div>
+    </section>
+    <!-- counter section end -->
+
+     <!-- Team section start -->
+     <section id="team" class="team-section">
+        <div class="container">
+            <div class="row ">
+                 <div class="col-md-8 col-12 col-lg-8">
+                    <div class="sec-title-main ">
+                        <div class="bottom-border">
+                            <h2 class="head-color text-capitalize">
+                                Meet Our Team
+                            </h2>
+                        </div>                                
+                    </div>
+                 </div>
+            </div>
+            <div class="row mt-5 justify-content-center align-items-center">
+                <div class="one col-md-10 col-11 col-lg-4 col-xxl-4 my-2 mx-auto justify-content-center text-center">
+                    
+                    <div id="team-card" class=" my-2 mx-auto justify-content-center text-center pb-2" data-aos="flip-left" data-aos-duration="1000">
+                        <img src="./images/bg3.jpg" class="" width="100%" height="auto">
+                        <h6 class="fw-bold mt-3">Lorem Ipsum</h6>
+                        <h6 class=" ">Founder</h6>
+                        <a href="#" target=”_blank”><img src="images/linkedin.png" class="img-fluid " width="20px" height="20px" ></a>
+                    </div>
+                    
+                </div>
+                <div  class="one col-md-10 col-11 col-lg-4 col-xxl-4 my-2 mx-auto justify-content-center text-center" >
+                  
+                   <div id="team-card" class=" my-2 mx-auto justify-content-center text-center pb-2"  data-aos="flip-left" data-aos-duration="1000">
+                            <img src="./images/bg3.jpg" class="" width="100%" height="auto">   
+                        <h6 class="fw-bold mt-3 ">Lorem Ipsum</h6>
+                        <h6 class="">Co-Founder</h6>
+                        <a href="https://www.linkedin.com/in/priyanka-panzade-3987b884/" target=”_blank”><img src="images/linkedin.png" class="img-fluid " width="20px" height="20px" ></a>
+                        
+                   </div>
+                            
+                </div>
+
+                <div class="one col-md-10 col-11 col-lg-4 col-xxl-4 my-2 mx-auto justify-content-center text-center text-white ">
+
+                    <div id="team-card" class=" my-2 mx-auto justify-content-center text-center pb-2"  data-aos="flip-left" data-aos-duration="1000">
+                        <img src="./images/bg3.jpg" class="" width="100%" height="auto">
+                        <h6 class="fw-bold mt-3">Lorem Ipsum</h6>
+                        <h6 class="">Project Manager</h6>
+                        <a href="https://www.linkedin.com/in/mrunalini-joshi-6a3998182/" target=”_blank” ><img src="images/linkedin.png" class="img-fluid " width="20px" height="20px" ></a>
+                    </div>
+                   
+                </div>                 
+            </div>
+        </div>
+    </section>
+    <!-- Team section end -->
+
+    <!-- contact section start -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="row ">
+                 <div class="col-md-8 col-12 col-lg-8">
+                    <div class="sec-title-main ">
+                        <div class="bottom-border">
+                            <h2 class="head-color text-capitalize">
+                                Contact Us
+                            </h2>
+                        </div>                                
+                    </div>
+                 </div>
+            </div>
+            <div class="row mt-5">
+                <div class="col-lg-12 col-md-12 col-12 justify-content-center align-items-center text-center mx-auto">
+                    <div class=" mx-auto justify-content-center text-center p-5 bg-light" id="contact-box">
+                        <div class="row mx-auto justify-content-center text-center">
+
+                            <div class="col-md-6 col-lg-6 col-12 g-5">
+                                <form class="row g-3" action="" method="post">
+                                    <div class="col-12 col-lg-6">
+                                        <input type="text" name="name" class="form-control" id="inputName" placeholder="Your Full Name">
+                                    </div>
+                                    <div class="col-12 col-lg-6">
+                                      
+                                      <input type="email" name="email" class="form-control" id="inputEmail4"  placeholder="Your Email address">
+                                    </div>
+                                    <div class="col-12">                                      
+                                      <input type="tel" name="number" class="form-control" id="inputPNumber"  placeholder="Your Mobile Number">
+                                    </div>
+                                    <div class="col-12">
+                                        <textarea class="form-control" placeholder="Enter your Messege" name="message" id="floatingTextarea2" style="height: 308px"></textarea> 
+                                    </div>
+                                    <div class="col-12 d-flex justify-content-start">
+                                        <button type="submit" name="submit" class="btn " style="color:white; background: linear-gradient(to right, #042889, #198754);;">Send Messege</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-1 col-lg-1"></div>
+
+                            <div class="col-md-5 col-lg-5 col-12 gy-5">
+                                <div class="card" style="width:18rem;">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-start">
+                                            <div class="sec-title-main ">
+                                                <div class="bottom-border">
+                                                    <span>
+                                                        <!-- <i class="fa fa-envelope mr-1" style="font-size: 24px; color: #009bce;" aria-hidden="true"></i> -->
+                                                        <span class="text-uppercase" style="font-size: 18px;">our Emails</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </h5>
+                                        <p class="card-text text-start ">
+                                            <a href="#" class="p-1 text-decoration-none text-dark" style="font-size:14px;"><img src="images/Messages.png" class="img-fluid " width="20px" height="20px" > akshay@akshay.in
+                                            </a><br>
+                                            <a href="#" class=" p-1 text-decoration-none text-dark" style="font-size:14px;"><img src="images/Messages.png" class="img-fluid " width="20px" height="20px" > akshay@akshay.in
+                                            </a>
+                                        </p>
+                                    
+                                    </div>
+                                </div>
+
+                                <div class="card mt-3" style="width:18rem;">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-start">
+                                            <div class="sec-title-main ">
+                                                <div class="bottom-border">
+                                                    <span>
+                                                        
+                                                        <span class="text-uppercase" style="font-size: 18px;">our phone</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </h5>
+                                        <p class="card-text text-start ">
+                                            <a href="#" class="p-1 text-decoration-none text-dark" style="font-size:14px;"><img src="images/Phone.png" class="img-fluid " width="16px" height="16px" > +91 1234567890
+                                            </a><br>
+                                            <a href="#" class=" p-1 text-decoration-none text-dark" style="font-size:14px;"><img src="images/Phone.png" class="img-fluid " width="16px" height="16px" > +91 1234567890
+                                            </a>
+                                        </p>
+                                    
+                                    </div>
+                                </div>
+
+                                <div class="card mt-3" style="width:18rem;">
+                                    <div class="card-body">
+                                        <h5 class="card-title text-start">
+                                            <div class="sec-title-main ">
+                                                <div class="bottom-border">
+                                                    <span>
+                                                        <!-- <i class="fa fa-circle-thin mr-1" style="font-size: 24px; color: #009bce;" aria-hidden="true"></i> -->
+                                                        <span class="text-uppercase" style="font-size: 18px;">Follow us</span>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </h5>
+                                        <div class="col-md-7 d-flex  mt-2">
+                                            <div class="me-4 social">
+                                                <a class="" target=”_blank” href="#"><img src="images/Facebook.png" class="img-fluid " width="28px" height="28px" ></a>
+                                            </div>
+                                            <div class="me-4">
+                                                <a class="" target=”_blank” href="#"><img src="images/Instagram.png" class="img-fluid " width="28px" height="28px" ></a>
+                                            </div>
+                                            <div class="me-4">
+                                                <a class="" target=”_blank” href="#"><img src="images/linkedin.png" class="img-fluid " width="28px" height="28px" ></a>
+                                            </div> 
+                                        </div>
+                                    
+                                    </div>
+                                </div>
+
+                                <div class="card mt-3" style="width:18rem;">
+                                    <div class="card-body">
+                                        <h5 class="card-title">
+                                            <h5 class="card-title text-start">
+                                                <div class="sec-title-main ">
+                                                    <div class="bottom-border">
+                                                        <span>
+                                                            <!-- <i class="fa fa-map-marker" style="font-size: 24px; color: #009bce;" aria-hidden="true"></i> -->
+                                                            <span class="text-uppercase" style="font-size: 18px;">Address</span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </h5>
+                                        </h5>
+                                        <p class=" mt-2">
+                                            <span style="vertical-align: top !important;">
+                                                <img src="images/Places.png" class="img-fluid " width="20px" height="20px" >
+                                            </span>
+                                            <span class="text-start" style="display: inline-block;
+                                            width: calc(100% - 35px); font-size: 14px;">
+                                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Dolor animi in explicabo.
+                                            </span>
+                                        </p>
+                                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>                
+            </div>
+        </div>
+    </section>
+    <!-- contact section end -->
+
+    <!-- footer section start -->
+    <footer class="footer-section">
+        <div class="container">
+            <hr>
+            <div class="row">
+                <div class="col-md-6 col-12 col-lg-6">
+                    <nav class="nav">
+                        <a class="nav-link active " aria-current="page" href="#about">About Us</a>
+                        <a class="nav-link " aria-current="page" href="#service">What we do</a>
+                        <a class="nav-link " aria-current="page" href="#team">Our team</a>
+                        <a class="nav-link" aria-current="page" href="" data-bs-toggle="modal" data-bs-target="#exampleModal">Careers</a>
+                      </nav>
+                </div>
+
+                <div class="col-md-6 col-12 col-lg-6 p-2">
+                    <p class=" text-white small" style="text-align: end;">Copyright &copy;  2021 All Right Reserved. Design By Akshay.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- footer section end -->
+
+    <!-- Separate Popper and Bootstrap JS -->
+    
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js" integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js" integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG" crossorigin="anonymous"></script>
+    
+    <script src="js/particles.js-master/particles.js"></script>
+    <script src="js/particles.js-master/demo/js/app.js"></script>
+    <script src="js/typed.js-master/lib/typed.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js" integrity="sha512-CEiA+78TpP9KAIPzqBvxUv8hy41jyI3f2uHi7DGp/Y/Ka973qgSdybNegWFciqh6GrN2UePx2KkflnQUbUhNIA==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Counter-Up/1.0.0/jquery.counterup.min.js" integrity="sha512-d8F1J2kyiRowBB/8/pAWsqUl0wSEOkG5KATkVV4slfblq9VRQ6MyDZVxWl2tWd+mPhuCbpTB4M7uU/x9FlgQ9Q==" crossorigin="anonymous"></script>
+    <script src="js/typed-text.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init();
+    </script> 
+    <script>
+        $(document).ready(function(){
+            $(".counter").counterUp({
+                delay:10,
+                time:1200
+                });
+            });
+    </script>
+
+  </body>
+</html>
